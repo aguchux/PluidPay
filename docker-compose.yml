@@ -1,0 +1,29 @@
+services:
+  pluid_db:
+    image: postgres:17 # Use official PostgreSQL image
+    container_name: pluid_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: appdb
+    ports:
+      - '5435:5432' # main DB
+    volumes:
+      - pluid_data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d # optional: run init SQL at startup
+
+  pluid_shadowdb:
+    image: postgres:17
+    container_name: pluid_shadowdb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: shadowdb
+    ports:
+      - '5436:5432' # shadow DB, listen on 5436 externally, maps to 5432 internally
+    volumes:
+      - pluid_shadow:/var/lib/postgresql/data
+
+volumes:
+  pluid_data:
+  pluid_shadow:
