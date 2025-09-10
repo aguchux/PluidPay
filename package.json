@@ -9,7 +9,8 @@
     "lint": "eslint",
     "format": "prettier --write .",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "postinstall": "npm run format && npm run lint --fix && npx prisma migrate deploy && npx prisma generate --no-engine && npm run test"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
