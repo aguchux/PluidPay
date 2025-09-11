@@ -6,6 +6,14 @@ export interface WiseCurrency {
   supportsDecimals: boolean;
 }
 
+export type ComparisonResponse = {
+  sourceCurrency: string; // e.g., "GBP"
+  targetCurrency: string; // e.g., "EUR"
+  amount: number; // e.g., 10000
+  amountType: 'SEND' | 'RECEIVE';
+  providers: WiseProvider[];
+};
+
 export interface WiseQuote {
   rate: number;
   fee: number;

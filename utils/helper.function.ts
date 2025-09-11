@@ -28,6 +28,16 @@ export const computeExchangeAmount = (
   };
 };
 
+// Format as Generic currency with 2 decimal places
+export function toMoney(n: number | null | undefined, currencyCode: string = 'GBP') {
+  if (n == null) return '—';
+  return n.toLocaleString('en-GB', {
+    style: 'currency',
+    currency: currencyCode,
+    maximumFractionDigits: 2,
+  });
+}
+
 // Format as GBP currency
 export function gbp(n: number | null | undefined) {
   if (n == null) return '—';

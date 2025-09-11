@@ -23,7 +23,7 @@ export default function CurrencyDropdown({
         {label && <div className="text-sm mb-2 font-medium">{label}</div>}
         <button
           type="button"
-          className="flex cursor-pointer flex-row justify-between items-center gap-2 bg-[#ecefdc] px-4 py-1 rounded-full font-medium text-gray-700 w-full"
+          className="flex cursor-pointer border border-gray-300 dark:border-gray-700 flex-row justify-between items-center gap-2 px-4 py-1 rounded-full font-medium text-gray-700 w-full"
           onClick={() => setOpen((o) => !o)}
           aria-haspopup="listbox"
           aria-expanded={open}

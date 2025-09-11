@@ -14,8 +14,8 @@ const initialState: AppState = {
   startSending: false,
   fromCurrency: 'GBP',
   toCurrency: 'GBP',
-  fromAmount: 0.0,
-  toAmount: 0.0,
+  fromAmount: 1.0,
+  toAmount: 1.0,
 };
 
 const appSlice = createSlice({

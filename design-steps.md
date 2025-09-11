@@ -52,3 +52,8 @@ No need for manual thunk or reducer creation: RTK Query generates everything for
 
 1. Currencies
 2. Quotes and Rates
+
+## 9. Final Changes
+
+1. Rechart and Comparisons
+2. UI finetuning

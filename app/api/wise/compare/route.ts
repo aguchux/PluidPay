@@ -31,6 +31,5 @@ export async function GET(req: NextRequest) {
 
   const data = await response.json();
 
-  console.log('compared', data);
   return NextResponse.json(data, { status: 200 });
 }

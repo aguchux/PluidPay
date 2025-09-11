@@ -13,11 +13,21 @@ export const wiseApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Currencies', 'Profile', 'Quote', 'Comparisons', 'Rate'],
+  tagTypes: ['Currency', 'Currencies', 'Profile', 'Quote', 'Comparisons', 'Rate'],
   endpoints: (builder) => ({
     getCurrencies: builder.query<WiseCurrency[], void>({
       query: () => '/currencies',
-      providesTags: ['Currencies'],
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ code }) => ({ type: 'Currencies' as const, code: code })),
+              { type: 'Currencies', code: 'LIST' },
+            ]
+          : [{ type: 'Currencies', code: 'LIST' }],
+    }),
+    getCurrency: builder.query<WiseCurrency, string>({
+      query: (code) => `currencies/${code}`,
+      providesTags: (result, error, code) => [{ type: 'Currency', code: code }],
     }),
     getComparisons: builder.query<
       WiseComparison,
@@ -37,6 +47,7 @@ export const wiseApi = createApi({
 
 export const {
   useGetCurrenciesQuery,
+  useGetCurrencyQuery,
   useGetComparisonsQuery,
   useLazyGetComparisonsQuery,
   useGetRateQuery,

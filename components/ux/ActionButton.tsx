@@ -17,7 +17,7 @@ const ActionButton = () => {
   return (
     <button
       onClick={handleClick}
-      className={`rounded-full h-20 w-20 bg-background-light dark:bg-gray-800/50 dark:hover:bg-gray-700/40 cursor-pointer border-2 border-gray-300 hover:bg-gray-200/70 dark:border-gray-500 absolute top-4 left-4 items-center justify-center flex transition-all ${startSending ? 'animate-pulse' : ''}`}
+      className={`rounded-full h-20 w-20 bg-background-light dark:bg-gray-800/50 dark:hover:bg-gray-700/40 cursor-pointer border-2 border-gray-300 hover:bg-gray-200/70 dark:border-gray-500 fixed top-4 left-4 items-center justify-center flex transition-all ${startSending ? 'animate-pulse' : ''}`}
     >
       {startSending ? (
         <X className="h-8 w-8 text-red-500 m-auto" />
