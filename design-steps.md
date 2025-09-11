@@ -41,3 +41,14 @@ No need for manual thunk or reducer creation: RTK Query generates everything for
 ## 6. App Theme (I decided to integrate themes [light and dark])
 
 1. Scaffold 'next-themes'
+2. Fix CSS themes
+
+## 7. Build Small UI/UX
+
+1. Simple transfer widget
+2. Currency xchange
+
+## 8. Updated API for Wise data pipelines
+
+1. Currencies
+2. Quotes and Rates

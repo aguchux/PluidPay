@@ -1,6 +1,6 @@
 'use client';
 
-import { SendHorizonalIcon } from 'lucide-react';
+import { SendHorizonalIcon, X } from 'lucide-react';
 import React from 'react';
 
 import { useAppDispatch, useAppSelector } from '@hooks/redux';
@@ -11,7 +11,7 @@ const ActionButton = () => {
   const { startSending } = useAppSelector((state) => state.app);
 
   const handleClick = () => {
-    dispatch(setStartSending(true));
+    dispatch(setStartSending(!startSending));
   };
 
   return (
@@ -19,7 +19,11 @@ const ActionButton = () => {
       onClick={handleClick}
       className={`rounded-full h-20 w-20 bg-background-light dark:bg-gray-800/50 dark:hover:bg-gray-700/40 cursor-pointer border-2 border-gray-300 hover:bg-gray-200/70 dark:border-gray-500 absolute top-4 left-4 items-center justify-center flex transition-all ${startSending ? 'animate-pulse' : ''}`}
     >
-      <SendHorizonalIcon className="h-8 w-8 text-primary m-auto" />
+      {startSending ? (
+        <X className="h-8 w-8 text-red-500 m-auto" />
+      ) : (
+        <SendHorizonalIcon className="h-8 w-8 text-primary m-auto" />
+      )}
     </button>
   );
 };

@@ -1,41 +1,44 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const WISE_API_BASE = 'https://api.sandbox.transferwise.tech/v1';
+import { WiseCurrency } from 'data/currencies';
+import { WiseComparison, WiseRate } from 'types/wise.types';
 
 export const wiseApi = createApi({
   reducerPath: 'wiseApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: WISE_API_BASE,
+    baseUrl: 'api/wise',
     prepareHeaders: (headers, { getState }) => {
-      headers.set('Authorization', `Bearer a35b0245-7e27-4843-a603-b3cc4e178808`);
       headers.set('Content-Type', 'application/json');
       headers.set('Accept', 'application/json');
       return headers;
     },
   }),
-  tagTypes: ['Profile', 'Quote'],
+  tagTypes: ['Currencies', 'Profile', 'Quote', 'Comparisons', 'Rate'],
   endpoints: (builder) => ({
-    getCurrencies: builder.query<any, void>({
+    getCurrencies: builder.query<WiseCurrency[], void>({
       query: () => '/currencies',
+      providesTags: ['Currencies'],
     }),
-    getQuotes: builder.query<
-      any,
-      { sourceCurrency: string; targetCurrency: string; sourceAmount: number }
+    getComparisons: builder.query<
+      WiseComparison,
+      { sourceCurrency: string; targetCurrency: string; sendAmount: number }
     >({
-      query: ({ sourceCurrency, targetCurrency, sourceAmount }) => ({
-        url: '/quotes',
-        method: 'POST',
-        body: { sourceCurrency, targetCurrency, sourceAmount, profile: 123456 }, // Replace with actual profile ID
-      }),
-      providesTags: ['Quote'],
+      query: ({ sourceCurrency, targetCurrency, sendAmount }) =>
+        `/compare?sourceCurrency=${sourceCurrency}&targetCurrency=${targetCurrency}&sendAmount=${sendAmount}`,
+      providesTags: ['Comparisons'],
     }),
-    // Add more endpoints as needed
-    getProfile: builder.query<any, void>({
-      query: () => '/profiles',
-      providesTags: ['Profile'],
+    getRate: builder.query<WiseRate, { sourceCurrency: string; targetCurrency: string }>({
+      query: ({ sourceCurrency, targetCurrency }) =>
+        `/rate?sourceCurrency=${sourceCurrency}&targetCurrency=${targetCurrency}`,
+      providesTags: ['Rate'],
     }),
-    // Add more endpoints as needed
   }),
 });
 
-export const { useGetCurrenciesQuery, useGetQuotesQuery, useGetProfileQuery } = wiseApi;
+export const {
+  useGetCurrenciesQuery,
+  useGetComparisonsQuery,
+  useLazyGetComparisonsQuery,
+  useGetRateQuery,
+  useLazyGetRateQuery,
+} = wiseApi;

@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
 import './globals.css';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 import StoreProvider from 'context/store-provider';
 import { ThemeProvider } from 'context/theme-context';
 import { ThemeSwitcher } from '@components/theme-switcher';

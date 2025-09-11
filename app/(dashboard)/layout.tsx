@@ -5,5 +5,9 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className="min-h-screen w-screen overflow-hidden flex flex-col">{children}</div>;
+  return (
+    <div className="min-h-screen justify-center items-center w-full overflow-hidden flex flex-col">
+      {children}
+    </div>
+  );
 }

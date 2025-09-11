@@ -6,3 +6,4 @@ export * from './Label';
 export * from './Select';
 export * from './TextArea';
 export * from './ProgressButton';
+export * from './ProgressBox';
