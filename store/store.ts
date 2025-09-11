@@ -1,7 +1,7 @@
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import {
-  persistReducer,
   persistStore,
+  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -9,23 +9,27 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { coreApi } from 'apis/core.api';
 
+import { coreApi } from './apis/core.api';
+import { wiseApi } from './apis/wise.api';
 import storage from './storage';
 import appReducer from './slices/app.slice';
+import themeReducer from './slices/theme.slice';
+
+const rootReducers = combineReducers({
+  // Add API reducers here
+  [coreApi.reducerPath]: coreApi.reducer,
+  [wiseApi.reducerPath]: wiseApi.reducer,
+  // Add other slice-based reducers here
+  app: appReducer,
+  theme: themeReducer,
+});
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['app'],
+  whitelist: ['app', 'theme'],
 };
-
-const rootReducers = combineReducers({
-  [coreApi.reducerPath]: coreApi.reducer,
-
-  // Add other reducers here
-  app: appReducer,
-});
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
 
@@ -37,7 +41,9 @@ export const makeStore = () => {
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }).concat(coreApi.middleware),
+      })
+        .concat(coreApi.middleware)
+        .concat(wiseApi.middleware),
   });
   const persistor = persistStore(store);
   // Return Persistor and store objects

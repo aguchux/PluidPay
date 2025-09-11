@@ -32,3 +32,12 @@ No need for manual thunk or reducer creation: RTK Query generates everything for
 1. Setup Prisma ORM
 2. Setup Docker and spinup postgres [pluidDb and pluidShadowDb]
 3. Create Model Schemas
+
+## 5. Created a small CorelDraw graphics
+
+1. Created Pluid Logo
+2. Banners and assets
+
+## 6. App Theme (I decided to integrate themes [light and dark])
+
+1. Scaffold 'next-themes'

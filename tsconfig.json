@@ -21,7 +21,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["/*"],
-      "@api/*": ["app/api/*"]
+      "@api/*": ["app/api/*"],
+      "@store/*": ["store/*"],
+      "@components/*": ["components/*"],
+      "@hooks/*": ["hooks/*"],
+      "@lib/*": ["lib/*"],
+      "@assets/*": ["public/*"]
     }
   },
   "include": [
