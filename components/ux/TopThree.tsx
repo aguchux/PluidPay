@@ -22,15 +22,15 @@ const TopThree = ({
         {top.map((r) => (
           <div
             key={r.providerId}
-            className="flex items-center gap-2 rounded-lg px-3 py-2 shadow-sm ring-1 text-gray-900 dark:text-white ring-emerald-100"
+            className="flex items-center gap-2 rounded-lg px-3 py-2 shadow-sm ring-1 text-gray-900 dark:text-white ring-gray-400 dark:bg-gray-300/30 dark:ring-gray-500 "
           >
             {r.logoSrc ? (
               <img src={r.logoSrc} alt={r.name} className="h-4 w-auto" />
             ) : (
-              <div className="h-4 w-4 rounded bg-gray-100" />
+              <div className="h-4 w-4 rounded" />
             )}
             <span className="text-sm font-medium">{r.name}</span>
-            <span className="text-xs text-gray-400">
+            <span className="text-xs ">
               · {(r.bestQuote?.receivedAmount ?? 0).toLocaleString()} {currency}
             </span>
             {r.isMidMarket && (

@@ -133,7 +133,7 @@ const ThePluidWidget = () => {
         <ActionButton />
         {startSending ? (
           <>
-            <div className="bg-gray-100 text-black dark:text-white w-full md:w-1/3 h-full px-2 py-1 dark:bg-gray-800/50 rounded-xl border-2 border-gray-300 dark:border-gray-500">
+            <div className="bg-gray-100 text-black dark:text-white w-full h-full px-2 py-1 dark:bg-gray-800/50 rounded-xl border-2 border-gray-300 dark:border-gray-500">
               <div className=" p-8 rounded-lg max-w-md mx-auto">
                 {/* Exchange Rate Banner */}
                 <ExchangeRateBanner />
@@ -229,7 +229,7 @@ const ThePluidWidget = () => {
             </div>
 
             <div
-              className={`mt-0 p-4 h-full ${comparisons?.providers.length ? '' : 'hidden'} w-full md:w-1/3`}
+              className={`mt-0 p-4 h-full ${comparisons?.providers.length ? '' : 'hidden'} w-full md:w-2/3`}
             >
               {/* Simple Tab Switch */}
               <div className="border-b border-gray-300 dark:border-gray-600 mb-4">
