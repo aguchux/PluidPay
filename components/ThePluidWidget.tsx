@@ -46,10 +46,7 @@ const ThePluidWidget = () => {
   // Wanted to implement swapping currencies but ran out of time
   const [_, setLastEdited] = React.useState<'from' | 'to' | null>(null);
 
-  // (unused) for  swapping currencies
-  // I wanted to implement swapping currencies
-  // but ran out of time
-  const r = rate?.rate ?? 1;
+  // Helper to compare floating point numbers
   const approxEq = (a = 0, b = 0) => Math.abs(a - b) < 1e-9;
   const safeNum = (v: any) => (Number.isFinite(Number(v)) ? Number(v) : 0);
 
@@ -160,18 +157,20 @@ const ThePluidWidget = () => {
               {isLoadingComparisons || isLoading ? (
                 <ActionLoader message="Getting the best rates for you..." />
               ) : comparisons?.providers.length ? (
-                <div className="text-sm text-center text-gray-500 dark:text-gray-400">
-                  <div className="mt-4 p-4 flex flex-row text-sm mx-4 border bg-gray-300/60 dark:bg-gray-800/50 border-gray-300 dark:border-gray-700 rounded-lg">
-                    <span>Available Providers: </span>
-                    <div className="mx-2 text-green-400">|</div>
-                    <div className="flex flex-wrap gap-1">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <div className="mt-4 p-4 flex flex-col text-sm mx-4 border bg-gray-300/60 dark:bg-gray-800/50 border-gray-300 dark:border-gray-700 rounded-lg">
+                    <div className="font-semibold mb-2">Available Providers: </div>
+                    <div className="flex flex-wrap gap-1 flex-row ">
                       {providers.map((provider) => (
                         <button
-                          className="text-gray-600 cursor-pointer dark:text-white text-sm bg-gray-200 dark:bg-gray-700 rounded-md px-2 py-1"
+                          className="text-gray-900 cursor-pointer dark:text-white text-sm bg-gray-300 dark:bg-gray-700 rounded-md px-2 py-1"
                           key={provider.id}
                         >
                           <span className="font-semibold hover:underline">{provider.name}</span> (
-                          <em className="text-green-400">{provider.quotes[0]?.rate.toFixed(4)}</em>)
+                          <em className="text-green-900 dark:text-green-400">
+                            {provider.quotes[0]?.rate.toFixed(4)}
+                          </em>
+                          )
                         </button>
                       ))}
                     </div>

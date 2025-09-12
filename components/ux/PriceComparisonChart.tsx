@@ -43,9 +43,14 @@ const PriceComparisonChart: React.FC<PriceComparisonChartProps> = ({
     { skip: !data.targetCurrency },
   );
 
+  // Prepare data for chart
+  // Map providers to rows with best quote info
+  // Sort by selected metric
+  // Memoize to avoid unnecessary recalculations
   const rows = useMemo(() => {
     const amount = data.amount;
     const sourceCurrency = data.sourceCurrency;
+    const targetCurrency = data.targetCurrency;
 
     const list = data.providers
       .map((prov) => {
@@ -68,6 +73,7 @@ const PriceComparisonChart: React.FC<PriceComparisonChartProps> = ({
           dateCollected: best.dateCollected,
           amount,
           sourceCurrency,
+          targetCurrency,
         };
       })
       .filter(Boolean) as Array<{
@@ -84,6 +90,7 @@ const PriceComparisonChart: React.FC<PriceComparisonChartProps> = ({
       dateCollected: string;
       amount: number;
       sourceCurrency: string;
+      targetCurrency: string;
     }>;
 
     // Sort by chosen metric (desc)
