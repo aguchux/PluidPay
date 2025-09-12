@@ -37,29 +37,19 @@ export interface WiseProvider {
   id: number;
   alias: string;
   name: string;
-  logos: {
-    normal: {
-      svgUrl: string;
-      pngUrl: string;
-    };
-    inverse: {
-      svgUrl: string | null;
-      pngUrl: string | null;
-    };
-    white: {
-      svgUrl: string;
-      pngUrl: string;
-    };
-    circle: {
-      svgUrl: string;
-      pngUrl: string | null;
-    };
-    altText: string;
-  };
+  logos: LogoSet;
   type: string;
   partner: boolean;
   quotes: WiseQuote[];
 }
+
+export type LogoSet = {
+  normal?: { svgUrl?: string | null; pngUrl?: string | null };
+  inverse?: { svgUrl?: string | null; pngUrl?: string | null };
+  white?: { svgUrl?: string | null; pngUrl?: string | null };
+  circle?: { svgUrl?: string | null; pngUrl?: string | null };
+  altText?: string;
+};
 
 export interface WiseComparison {
   sourceCurrency: string;
@@ -73,9 +63,35 @@ export interface WiseComparison {
   providers: WiseProvider[];
 }
 
+export type DeliveryDuration =
+  | null
+  | string // sometimes just "PT1S"
+  | {
+      min: string | null;
+      max: string | null;
+    };
+
+export type DeliveryEstimation = {
+  providerGivesEstimate: boolean;
+  duration: DeliveryDuration;
+};
+
 export interface WiseRate {
   rate: number;
   source?: string;
   target?: string;
   time?: string;
 }
+
+export type ProviderRow = {
+  providerId: number;
+  name: string;
+  alias: string;
+  type: 'bank' | 'moneyTransferProvider' | string;
+  logoSrc?: string;
+  logos: LogoSet;
+  partner: boolean;
+  bestQuote: WiseQuote;
+  quotes: WiseQuote[]; // all quotes for that provider
+  isMidMarket: boolean; // best quote mid-market flag
+};

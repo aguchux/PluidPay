@@ -23,6 +23,7 @@ import CurrencyDropdown from './ux/CurrencyDropdown';
 import ExchangeRateBanner from './ux/ExchangeRateBanner';
 import CurrencyInput from './ux/CurrencyInput';
 import PriceComparisonChart from './ux/PriceComparisonChart';
+import WiseComparisonTable from './ux/WiseComparisonTable';
 
 const ThePluidWidget = () => {
   const dispatch = useAppDispatch();
@@ -99,10 +100,15 @@ const ThePluidWidget = () => {
     {
       label: 'Basic Comparison',
       content: (
-        <div>
-          <h3 className="text-lg font-semibold">Overview</h3>
-          <p className="mt-2 text-sm text-gray-600">Quick summary content goes here.</p>
-        </div>
+        <WiseComparisonTable
+          data={{
+            sourceCurrency: fromCurrency!,
+            targetCurrency: toCurrency!,
+            amount: fromAmount!,
+            amountType: 'SEND',
+            providers: comparisons?.providers || [],
+          }}
+        />
       ),
     },
     {
