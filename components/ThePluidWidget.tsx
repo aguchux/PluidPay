@@ -3,6 +3,8 @@
 import React from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import Link from 'next/link';
+import Skeleton from 'react-loading-skeleton';
+import { SendHorizontalIcon } from 'lucide-react';
 
 import ActionButton from '@components/ux/ActionButton';
 import { useAppDispatch, useAppSelector } from '@hooks/redux';
@@ -111,20 +113,24 @@ const ThePluidWidget = () => {
                     />
                   </div>
                   <div className="flex-1 text-right">
-                    <CurrencyInput
-                      value={fromAmount ?? 0}
-                      placeholder="0.00"
-                      onChange={(value) => {
-                        setLastEdited('from');
-                        const from = safeNum(value);
-                        if (!approxEq(fromAmount ?? 0, from)) {
-                          dispatch(setFromAmount(from));
-                        }
-                        dispatch(
-                          setToAmount(xChangeRateToAmount(Number(value), rate.rate ?? 1, 'to')),
-                        );
-                      }}
-                    />
+                    {isLoadingComparisons ? (
+                      <Skeleton width={100} height={24} />
+                    ) : (
+                      <CurrencyInput
+                        value={fromAmount ?? 0}
+                        placeholder="0.00"
+                        onChange={(value) => {
+                          setLastEdited('from');
+                          const from = safeNum(value);
+                          if (!approxEq(fromAmount ?? 0, from)) {
+                            dispatch(setFromAmount(from));
+                          }
+                          dispatch(
+                            setToAmount(xChangeRateToAmount(Number(value), rate.rate ?? 1, 'to')),
+                          );
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
                 {/*  alternate currency dropdown  */}
@@ -143,15 +149,19 @@ const ThePluidWidget = () => {
                     />
                   </div>
                   <div className="flex-1 text-right pt-4">
-                    <CurrencyInput
-                      value={toAmount ?? 0}
-                      placeholder="0.00"
-                      readOnly={true}
-                      onChange={(value) => {
-                        setLastEdited('to');
-                        dispatch(setToAmount(Number(value)));
-                      }}
-                    />
+                    {isLoadingComparisons ? (
+                      <Skeleton width={100} height={24} />
+                    ) : (
+                      <CurrencyInput
+                        value={toAmount ?? 0}
+                        placeholder="0.00"
+                        readOnly={true}
+                        onChange={(value) => {
+                          setLastEdited('to');
+                          dispatch(setToAmount(Number(value)));
+                        }}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -178,7 +188,7 @@ const ThePluidWidget = () => {
                   </div>
                 </div>
               ) : (
-                <div className="mt-4 p-4 text-[10px] mx-4 text-center border bg-red-300/60 dark:bg-red-800/50 border-red-300 dark:border-red-700 rounded-lg">
+                <div className="mt-4 p-4 text-base mx-4 text-center border bg-red-300/60 dark:bg-red-800/50 border-red-300 dark:border-red-700 rounded-lg">
                   There are no available rates for the selected currency pair.
                 </div>
               )}
@@ -199,16 +209,22 @@ const ThePluidWidget = () => {
             </div>
           </>
         ) : (
-          <>
+          <div className="text-center flex flex-col items-center">
             {/* Download my CV */}
             <Link
               href="/cv/CV_JULY_2025.docx"
-              className="mt-4 text-5xl inline-block text-gray-600 hover:underline"
+              className="mt-4 text-5xl inline-block text-gray-600 dark:text-white hover:underline"
               download={true}
             >
               Download My CV
             </Link>
-          </>
+            <div className="mt-2 text-center flex gap-2 text-gray-500 dark:text-gray-400">
+              <span>(Click the</span>
+              <span className="text-red-600 font-bold">TOP-LEFT</span>
+              <SendHorizontalIcon className="h-5 w-5 text-primary m-auto" />
+              <span>button above to view widget)</span>
+            </div>
+          </div>
         )}
       </div>
     </>
