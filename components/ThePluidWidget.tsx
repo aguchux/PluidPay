@@ -93,6 +93,34 @@ const ThePluidWidget = () => {
     setProviders(comparisons?.providers || []);
   }, [rate, comparisons?.providers, fromCurrency, toCurrency, fromAmount]);
 
+  const [currentTab, setCurrentTab] = React.useState(0);
+  // Build Tab data
+  const compareTabs = [
+    {
+      label: 'Basic Comparison',
+      content: (
+        <div>
+          <h3 className="text-lg font-semibold">Overview</h3>
+          <p className="mt-2 text-sm text-gray-600">Quick summary content goes here.</p>
+        </div>
+      ),
+    },
+    {
+      label: 'Charts & Graphs',
+      content: (
+        <PriceComparisonChart
+          data={{
+            sourceCurrency: fromCurrency!,
+            targetCurrency: toCurrency!,
+            amount: fromAmount!,
+            amountType: 'SEND',
+            providers: comparisons?.providers || [],
+          }}
+        />
+      ),
+    },
+  ] satisfies TabItem[];
+
   return (
     <>
       <div className="flex flex-row h-screen w-screen justify-center items-center relative p-4">
@@ -195,17 +223,43 @@ const ThePluidWidget = () => {
             </div>
 
             <div
-              className={`mt-0 p-4 ${comparisons?.providers.length ? '' : 'hidden'} w-full md:w-1/3`}
+              className={`mt-0 p-4 h-full ${comparisons?.providers.length ? '' : 'hidden'} w-full md:w-1/3`}
             >
-              <PriceComparisonChart
-                data={{
-                  sourceCurrency: fromCurrency!,
-                  targetCurrency: toCurrency!,
-                  amount: fromAmount!,
-                  amountType: 'SEND',
-                  providers: comparisons?.providers || [],
-                }}
-              />
+              {/* Simple Tab Switch */}
+              <div className="border-b border-gray-300 dark:border-gray-600 mb-4">
+                <div className="flex space-x-4">
+                  {compareTabs.map((tab, index) => (
+                    <button
+                      key={index}
+                      className={`px-3 py-2 font-medium text-sm rounded-t-lg ${
+                        index === currentTab
+                          ? 'bg-white dark:bg-gray-800 border-b-2 border-primary text-primary'
+                          : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                      }`}
+                      onClick={() => {
+                        setCurrentTab(index);
+                      }}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                {compareTabs.map((tab, index) => (
+                  <div
+                    key={index}
+                    data-tab-content={true}
+                    className={`${
+                      index === currentTab ? '' : 'hidden'
+                    } bg-gray-100 dark:bg-gray-800 p-4 rounded-lg`}
+                  >
+                    {tab.content}
+                  </div>
+                ))}
+              </div>
+
+              {/* Simple Tab Switch */}
             </div>
           </>
         ) : (

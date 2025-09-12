@@ -89,7 +89,7 @@ export default function CurrencyInput({
 
   return (
     <input
-      className="bg-transparent text-gray-400 text-2xl py-2 w-full text-right font-bold rounded-md focus:outline-none focus:ring-1 focus:ring-transparent"
+      className="bg-transparent text-gray-400 text-2xl border px-2 border-gray-700/40 py-2 w-full text-right font-bold rounded-md focus:outline-none focus:ring-1 focus:ring-transparent"
       type="text"
       inputMode="decimal"
       maxLength={18}

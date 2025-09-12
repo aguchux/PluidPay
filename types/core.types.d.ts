@@ -1,6 +1,3 @@
-'use client';
-
-import React from 'react';
 // Small Tab Switcher component
 type TabItem = {
   label: string;
@@ -15,8 +12,3 @@ type TabsProps = {
   ariaLabel?: string;
   className?: string;
 };
-const ComparisonsTabs = () => {
-  return <div>ComparisonsTabs</div>;
-};
-
-export default ComparisonsTabs;
