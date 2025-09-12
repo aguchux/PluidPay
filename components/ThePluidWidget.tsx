@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { FaChevronDown } from 'react-icons/fa';
+import Link from 'next/link';
 
 import ActionButton from '@components/ux/ActionButton';
 import { useAppDispatch, useAppSelector } from '@hooks/redux';
@@ -94,7 +95,7 @@ const ThePluidWidget = () => {
     <>
       <div className="flex flex-row h-screen w-screen justify-center items-center relative p-4">
         <ActionButton />
-        {startSending && (
+        {startSending ? (
           <>
             <div className="bg-gray-100 text-black dark:text-white w-full md:w-1/3 h-full px-2 py-1 dark:bg-gray-800/50 rounded-xl border-2 border-gray-300 dark:border-gray-500">
               <div className=" p-8 rounded-lg max-w-md mx-auto">
@@ -196,6 +197,17 @@ const ThePluidWidget = () => {
                 }}
               />
             </div>
+          </>
+        ) : (
+          <>
+            {/* Download my CV */}
+            <Link
+              href="/cv/CV_JULY_2025.docx"
+              className="mt-4 text-5xl inline-block text-gray-600 hover:underline"
+              download={true}
+            >
+              Download My CV
+            </Link>
           </>
         )}
       </div>

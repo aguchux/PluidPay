@@ -11,11 +11,20 @@ git clone https://github.com/aguchux/PluidPay.git .
 npm install
 ```
 
-## Setup Postgress in Docker
+## Setup .env Variables
+
+WISE_SANDBOX_TOKEN=< your Wise sandbox >
+
+## Run Test & Cleanups
 
 ```bash
-# spin up postgres
-docker compose up
-# or tear down
-docker compose up -d
+# format, lint and test
+npm run ckeck
+```
+
+## Start Dev Mode
+
+```bash
+# spin up the Application
+npm run dev
 ```

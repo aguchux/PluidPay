@@ -57,3 +57,8 @@ No need for manual thunk or reducer creation: RTK Query generates everything for
 
 1. Rechart and Comparisons
 2. UI finetuning
+
+## 10. Push to vercel
+
+1. Deploy to vercel
+2. Add CV to app
