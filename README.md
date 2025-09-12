@@ -19,7 +19,7 @@ WISE_SANDBOX_TOKEN=< your Wise sandbox >
 
 ```bash
 # format, lint and test
-npm run ckeck
+npm run check
 ```
 
 ## Start Dev Mode
