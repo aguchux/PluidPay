@@ -85,21 +85,19 @@ const WiseComparisonTable = ({ data }: { data: ComparisonResponse }) => {
               )}
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-gray-900">{r.name}</span>
+                  <span className="font-medium">{r.name}</span>
                   {isBest && (
                     <Badge className="bg-green-100 text-green-800 border border-green-200">
                       Best
                     </Badge>
                   )}
                   {r.partner && (
-                    <Badge className="bg-indigo-100 text-indigo-800 border border-indigo-200">
-                      Partner
-                    </Badge>
+                    <Badge className="bg-indigo-100 border border-indigo-200">Partner</Badge>
                   )}
                 </div>
-                <div className="mt-0.5 flex items-center gap-2 text-xs text-gray-500">
+                <div className="mt-0.5 flex items-center gap-2 text-xs">
                   <TypePill type={r.type} />
-                  {r.alias && <span className="hidden sm:inline">• {r.alias}</span>}
+                  {r.alias && <span className="hidden sm:inline">•{r.alias}</span>}
                 </div>
               </div>
             </div>
@@ -252,7 +250,7 @@ const WiseComparisonTable = ({ data }: { data: ComparisonResponse }) => {
   });
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 text-gray-900 dark:text-white">
       {/* Controls */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap gap-3">
@@ -261,12 +259,12 @@ const WiseComparisonTable = ({ data }: { data: ComparisonResponse }) => {
             placeholder="Search provider…"
             value={globalFilter}
             onChange={(e) => setGlobalFilter(e.target.value)}
-            className="w-60 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+            className="w-60 rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
           />
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+            className="rounded-lg border border-gray-300 px-3 text-gray-900 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
           >
             <option value="all">All types</option>
             <option value="moneyTransferProvider">Money Transfer Provider</option>
@@ -286,7 +284,7 @@ const WiseComparisonTable = ({ data }: { data: ComparisonResponse }) => {
         {/* Column toggles */}
         <div className="flex flex-wrap items-center gap-2">
           {table.getAllLeafColumns().map((col) => (
-            <label key={col.id} className="inline-flex items-center gap-1 text-xs text-gray-700">
+            <label key={col.id} className="inline-flex items-center gap-1 text-xs">
               <input
                 type="checkbox"
                 checked={col.getIsVisible()}
@@ -300,13 +298,13 @@ const WiseComparisonTable = ({ data }: { data: ComparisonResponse }) => {
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
+      <div className="overflow-x-auto rounded-xl border border-gray-200  shadow-sm">
         <table className="min-w-full text-sm">
-          <thead className="sticky top-0 z-10 bg-gray-50">
+          <thead className="sticky top-0 z-10 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-white">
             {table.getHeaderGroups().map((hg) => (
               <tr key={hg.id} className="border-b border-gray-200">
                 {hg.headers.map((header) => (
-                  <th key={header.id} className="px-4 py-3 text-left font-semibold text-gray-700">
+                  <th key={header.id} className="px-4 py-3 text-left font-semibold">
                     {header.isPlaceholder ? null : (
                       <div>{flexRender(header.column.columnDef.header, header.getContext())}</div>
                     )}
@@ -315,7 +313,7 @@ const WiseComparisonTable = ({ data }: { data: ComparisonResponse }) => {
               </tr>
             ))}
           </thead>
-          <tbody>
+          <tbody className="text-gray-900 dark:text-white">
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id} className="border-b border-gray-100 hover:bg-gray-50/60">
                 {row.getVisibleCells().map((cell) => (
