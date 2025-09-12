@@ -13,6 +13,7 @@ import {
   setToCurrency,
   setFromAmount,
   setToAmount,
+  setStartSending,
 } from '@store/slices/app.slice';
 import { useLazyGetRateQuery, useLazyGetComparisonsQuery } from '@store/apis/wise.api';
 import { WiseProvider, WiseRate } from 'types/wise.types';
@@ -32,6 +33,12 @@ const ThePluidWidget = () => {
   const { startSending, fromCurrency, toCurrency, fromAmount, toAmount } = useAppSelector(
     (state) => state.app,
   );
+
+  // I WANT TO BE SURE USER
+  // CAN EASILY GET TO THE  WIDGET
+  const handleClick = () => {
+    dispatch(setStartSending(!startSending));
+  };
 
   // Setup for fetching exchange rates
   // Lazy query to fetch rate on demand
@@ -271,19 +278,25 @@ const ThePluidWidget = () => {
         ) : (
           <div className="text-center flex flex-col items-center">
             {/* Download my CV */}
-            <Link
-              href="/cv/CV_JULY_2025.docx"
-              className="mt-4 text-5xl inline-block text-gray-600 dark:text-white hover:underline"
-              download={true}
+            <button
+              onClick={handleClick}
+              className="mt-4 flex text-5xl text-gray-600 dark:text-white my-5 cursor-pointer animate-caret-blink"
             >
-              Download My CV
-            </Link>
+              View Pluid Widget
+            </button>
             <div className="mt-2 text-center flex gap-2 text-gray-500 dark:text-gray-400">
               <span>(Click the</span>
               <span className="text-red-600 font-bold">TOP-LEFT</span>
               <SendHorizontalIcon className="h-5 w-5 text-primary m-auto" />
               <span>button above to view widget)</span>
             </div>
+            <Link
+              href="/cv/CV_JULY_2025.docx"
+              className="mt-4 text-xl inline-block text-gray-600 dark:text-white hover:underline"
+              download={true}
+            >
+              My CV (Download)
+            </Link>
           </div>
         )}
       </div>
